@@ -106,7 +106,6 @@ buffer[len] = '\0';
 printf("Received: %s\n", buffer);
 
 ```
-### 👨‍💻 Author
-Rajbhar Divesh
+### 🧠 Built with ❤️ by **RDH Robotics**
 
 Want more help? Reach out or fork and improve this repo!
