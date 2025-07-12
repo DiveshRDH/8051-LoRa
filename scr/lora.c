@@ -6,6 +6,7 @@
 #define DIO0    P12
 #define RESET   P13
 
+
 void SPI_Write(unsigned char reg, unsigned char val)
 {
     NSS = 0;
@@ -40,6 +41,7 @@ bit LoRa_Check(void)
 
 void LoRa_Init(void)
 {
+	
     P15_QUASI_MODE; P10_QUASI_MODE; P00_QUASI_MODE; P01_QUASI_MODE;
     P12_QUASI_MODE; P13_QUASI_MODE;
 
@@ -69,6 +71,8 @@ void LoRa_Init(void)
     SPI_Write(0x0E, 0x00);      // FIFO TX base
     SPI_Write(0x0D, 0x00);      // FIFO ptr
     SPI_Write(0x12, 0xFF);      // Clear IRQ
+		SPI_Write(0x4D, 0x87);  // Enable +20 dBm mode (High Power)
+
 }
 
 void LoRa_Send(char* msg, unsigned char len)
@@ -111,4 +115,11 @@ unsigned char LoRa_Receive(char* buf, unsigned char maxLen)
 
     SPI_Write(0x12, 0x40);  // Clear RxDone
     return len;
+}
+int LoRa_ReadRSSI(void)
+{
+    unsigned char rssi_raw = SPI_Read(0x1A);  // RegPktRssiValue
+
+    // SX1278 typical offset for 433 MHz is -164
+    return -164 + rssi_raw;
 }
