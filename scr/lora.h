@@ -6,6 +6,6 @@ void LoRa_Reset(void);
 void LoRa_Init(void);
 void LoRa_Send(char* msg, unsigned char len);
 unsigned char LoRa_Receive(char* buf, unsigned char maxLen);
-int LoRa_ReadRSSI(void);   // ← Add this
+int LoRa_ReadRSSI(void);
 
 #endif
